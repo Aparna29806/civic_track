@@ -1,0 +1,32 @@
+USE civic_issues;
+
+-- Insert sample users
+INSERT INTO users (name, email, phone, password, role)
+VALUES
+('Aparna S', 'aparna@example.com', '9876543210', 'hashedpassword1', 'citizen'),
+('Riddhima Samaiya', 'riddhima@example.com', '9876501234', 'hashedpassword2', 'citizen'),
+('Municipal Officer', 'officer@example.com', '9876512345', 'hashedpassword3', 'official');
+
+-- Insert sample issue (a pothole complaint)
+INSERT INTO issues (user_id, title, description, category, location, latitude, longitude, photo_url, severity)
+VALUES
+(1, 'Huge pothole on MG Road', 'There is a large pothole near the signal, causing traffic jams.', 
+'pothole', 'MG Road, Bangalore', 12.9716, 77.5946, 'http://example.com/pothole.jpg', 'high');
+
+-- Insert another issue (garbage complaint)
+INSERT INTO issues (user_id, title, description, category, location, latitude, longitude, photo_url, severity)
+VALUES
+(2, 'Garbage pile near park', 'Uncollected garbage for 5 days near community park.', 
+'garbage', 'Indiranagar, Bangalore', 12.9781, 77.6408, 'http://example.com/garbage.jpg', 'medium');
+
+-- Insert sample upvote (user 2 upvoting user 1's pothole issue)
+INSERT INTO upvotes (issue_id, user_id)
+VALUES (1, 2);
+
+-- Insert sample comment (official commenting)
+INSERT INTO comments (issue_id, user_id, comment)
+VALUES (1, 3, 'We have scheduled a team to check this tomorrow.');
+
+-- Insert sample escalation (if issue not solved)
+INSERT INTO escalations (issue_id, escalated_to, reason)
+VALUES (1, 'Commissioner', 'Issue not resolved within 7 days and marked high severity.');
