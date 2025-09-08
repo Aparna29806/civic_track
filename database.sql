@@ -39,3 +39,12 @@ create table Feedback (
     FOREIGN KEY (issue_id) REFERENCES Issues(issue_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+UPDATE Issues
+SET assigned_to = CASE 
+      WHEN escalation_level = 0 THEN 'Zonal Officer'
+      WHEN escalation_level = 1 THEN 'Municipal Head'
+      ELSE assigned_to
+    END,
+    escalation_level = escalation_level + 1,
+    deadline = DATE_ADD(NOW(), INTERVAL 48 HOUR)
+WHERE status != 'Resolved' AND NOW() > deadline;
